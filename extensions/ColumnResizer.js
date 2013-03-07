@@ -258,7 +258,7 @@ return declare(null, {
 			}
 
 			put(colNode, headerTextNode, "div.dgrid-resize-handle.resizeNode-"+id).columnId = 
-				assoc ? assoc[id] : id;
+				assoc && assoc[id] ? assoc[id] : id;
 		}
 
 		if(!grid.mouseMoveListen){
