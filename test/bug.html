@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Test height:auto</title>
+	<meta name="viewport" content="width=570">
+	<style>
+		@import "../../dojo/resources/dojo.css";
+		@import "../css/dgrid.css";
+		@import "../css/skins/claro.css";
+	</style>
+</head>
+
+<body class="claro">
+	<div class="grid" id="grid"></div>
+	<script src="../../dojo/dojo.js" 
+		data-dojo-config="async: true"></script>
+	<script>
+		require([
+            "dojo/request",
+            "dojo/store/Memory",
+            "dgrid/OnDemandGrid",
+            "dojo/_base/declare",
+            "dgrid/extensions/ColumnReorder",
+            "dgrid/extensions/ColumnResizer"
+        ],
+        function(request, Memory, OnDemandGrid, declare, ColumnReorder, ColumnResizer){
+            request("hof-batting.json", {
+                handleAs: "json"
+            }).then(function(response) {
+                var CustomGrid = declare([OnDemandGrid, ColumnResizer]),
+                    grid = new CustomGrid({
+                        store: new Memory({data: response}),
+                        subRows: [
+							[
+                                {field: "first", label: "First", sortable: false},
+                                {field: "last", label: "Last", sortable: false},
+                                {field: "bats", label: "Bats", sortable: false},
+                                {field: "throws", label: "Throws", sortable: false},
+                                {field: "totalG", label: "G", sortable: false},
+                                {field: "totalAB", label: "AB", sortable: false},
+                                {field: "totalR", label: "R", sortable: false}
+                            ],
+                            [
+                                {field: "nickname", label: "Nickname", colSpan: 7, sortable: false}
+                            ],
+                            [
+                                {field: "totalBB", label: "BB", sortable: false},
+                                {field: "totalK", label: "K", sortable: false},
+                                {field: "totalGAB", label: "Games as Batter", sortable: false},
+                                {field: "totalH", label: "H", sortable: false},
+                                {field: "total2B", label: "2B", sortable: false},
+                                {field: "total3B", label: "3B", sortable: false},
+                                {field: "totalHR", label: "HR", sortable: false}
+                            ]
+                        ]
+
+
+
+                    }, "grid");
+
+                    //grid.startup();
+            });
+		});
+	</script>
+</body>
+</html>
